@@ -6,47 +6,53 @@ import os
 import time
 import xml.dom as minidom
 import xml.dom.minidom
+import subprocess
+
 lines = os.listdir('XML')
+#10.231.161.222
+#subprocess.call(r'net use m: \\tcznt53\XML /user:AOI_VITOX_INSTALL 123456789*a', shell=True)
+#lines = os.listdir('\\\\tcznt53\XML')
 class App():
     def __init__(self):
         self.root = tk.Tk()
         self.root.title('AOI Dashboard')
-        self.root.geometry('1100x80')
+        self.root.resizable(0, 0)
+        #self.root.geometry('1100x80')
         self.root.iconbitmap('dashboard.ico')
 
         self.label = tk.Label(text="")
         self.label.grid(row=3, column=0)
 
-        self.L1 = Label(self.root, text="Line", width=10, borderwidth=1, relief="solid", bg="#302928", font="Arial", fg="white", pady="2")
-        self.L2 = Label(self.root, text=f"{lines[0]}", width=10, borderwidth=1, relief="solid", bg="black", font="Arial", fg="white", pady="2")
+        self.L1 = Label(self.root, text="Line", width=10, borderwidth=1, relief="solid", bg="#302928", font="Arial", fg="#FFFFFF", pady="2")
+        self.L2 = Label(self.root, text=f"{lines[0]}", width=10, borderwidth=1, relief="solid", bg="#080808", font="Arial", fg="#FFFFFF", pady="2")
         self.L1.grid(row=0, column=0)
         self.L2.grid(row=1, column=0)
-        self.L3 = Label(self.root, text="Item", width=27, borderwidth=1, relief="solid", bg="#302928", font="Arial", fg="white", pady="2")
-        self.L4 = tk.Label(self.root, text=f"", width=27, borderwidth=1, relief="solid", bg="black", font="Arial", fg="white", pady="2")
+        self.L3 = Label(self.root, text="Item", width=27, borderwidth=1, relief="solid", bg="#302928", font="Arial", fg="#FFFFFF", pady="2")
+        self.L4 = tk.Label(self.root, text=f"", width=27, borderwidth=1, relief="solid", bg="#080808", font="Arial", fg="#FFFFFF", pady="2")
         self.L3.grid(row=0, column=1)
         self.L4.grid(row=1, column=1)
-        self.L5 = Label(self.root, text="PCB Qty", width=10, borderwidth=1, relief="solid", bg="#302928", font="Arial", fg="white", pady="2")
-        self.L6 = tk.Label(self.root, text=f"", width=10, borderwidth=1, relief="solid", bg="black", font="Arial", fg="white", pady="2")
+        self.L5 = Label(self.root, text="PCB Qty", width=10, borderwidth=1, relief="solid", bg="#302928", font="Arial", fg="#FFFFFF", pady="2")
+        self.L6 = tk.Label(self.root, text=f"", width=10, borderwidth=1, relief="solid", bg="#080808", font="Arial", fg="#FFFFFF", pady="2")
         self.L5.grid(row=0, column=2)
         self.L6.grid(row=1, column=2)
-        self.L7 = Label(self.root, text="Avg F/C", width=10, borderwidth=1, relief="solid", bg="#302928", font="Arial", fg="white", pady="2")
-        self.L8 = tk.Label(self.root, text="", width=10, borderwidth=1, relief="solid", bg="black", font="Arial", fg="white", pady="2")
+        self.L7 = Label(self.root, text="Avg F/C", width=10, borderwidth=1, relief="solid", bg="#302928", font="Arial", fg="#FFFFFF", pady="2")
+        self.L8 = tk.Label(self.root, text="", width=10, borderwidth=1, relief="solid", bg="#080808", font="Arial", fg="#FFFFFF", pady="2")
         self.L7.grid(row=0, column=3)
         self.L8.grid(row=1, column=3)
-        self.L9 = Label(self.root, text="Max F/C", width=10, borderwidth=1, relief="solid", bg="#302928", font="Arial", fg="white", pady="2")
-        self.L10 = tk.Label(self.root, text="", width=10, borderwidth=1, relief="solid", bg="black", font="Arial", fg="white", pady="2")
+        self.L9 = Label(self.root, text="Max F/C", width=10, borderwidth=1, relief="solid", bg="#302928", font="Arial", fg="#FFFFFF", pady="2")
+        self.L10 = tk.Label(self.root, text="", width=10, borderwidth=1, relief="solid", bg="#080808", font="Arial", fg="#FFFFFF", pady="2")
         self.L9.grid(row=0, column=4)
         self.L10.grid(row=1, column=4)
-        self.L11 = Label(self.root, text="Ref. Des.", width=10, borderwidth=1, relief="solid", bg="#302928", font="Arial", fg="white", pady="2")
-        self.L12 = tk.Label(self.root, text="", width=10, borderwidth=1, relief="solid", bg="black", font="Arial", fg="white", pady="2")
+        self.L11 = Label(self.root, text="Ref. Des.", width=10, borderwidth=1, relief="solid", bg="#302928", font="Arial", fg="#FFFFFF", pady="2")
+        self.L12 = tk.Label(self.root, text="", width=10, borderwidth=1, relief="solid", bg="#080808", font="Arial", fg="#FFFFFF", pady="2")
         self.L11.grid(row=0, column=5)
         self.L12.grid(row=1, column=5)
-        self.L13 = Label(self.root, text="Occurs", width=10, borderwidth=1, relief="solid", bg="#302928", font="Arial", fg="white", pady="2")
-        self.L14 = tk.Label(self.root, text="", width=10, borderwidth=1, relief="solid", bg="black", font="Arial", fg="white", pady="2")
+        self.L13 = Label(self.root, text="Occurs", width=10, borderwidth=1, relief="solid", bg="#302928", font="Arial", fg="#FFFFFF", pady="2")
+        self.L14 = tk.Label(self.root, text="", width=10, borderwidth=1, relief="solid", bg="#080808", font="Arial", fg="#FFFFFF", pady="2")
         self.L13.grid(row=0, column=6)
         self.L14.grid(row=1, column=6)
-        self.L15 = Label(self.root, text="Percent", width=10, borderwidth=1, relief="solid", bg="#302928", font="Arial", fg="white", pady="2")
-        self.L16 = tk.Label(self.root, text="", width=10, borderwidth=1, relief="solid", bg="black", font="Arial", fg="white", pady="2")
+        self.L15 = Label(self.root, text="Percent", width=10, borderwidth=1, relief="solid", bg="#302928", font="Arial", fg="#FFFFFF", pady="2")
+        self.L16 = tk.Label(self.root, text="", width=10, borderwidth=1, relief="solid", bg="#080808", font="Arial", fg="#FFFFFF", pady="2")
         self.L15.grid(row=0, column=7)
         self.L16.grid(row=1, column=7)
 
@@ -64,6 +70,9 @@ class App():
         for date in os.listdir('XML/Gamma/Archive'):
             for xml0 in os.listdir('XML/Gamma/Archive/' + date):
                 docs = xml.dom.minidom.parse('XML/Gamma/Archive/'+date+'/'+xml0)
+        #for date in os.listdir('\\\\tcznt53\XML\GAMMA\Archive'):
+            #for xml0 in os.listdir('\\\\tcznt53\XML\GAMMA\Archive\\' + date):
+                #docs = xml.dom.minidom.parse('\\\\tcznt53\XML\GAMMA\Archive\\' + date + '\\' + xml0)
                 progName = xml0.split('#')
 
                 #print(progName[1])
@@ -75,6 +84,11 @@ class App():
                 filePathAvg = 'C:\_pythonProject\XML\gammaAvg.txt'
                 filePathMax = 'C:\_pythonProject\XML\gammaMax.txt'
                 filePathRD = 'C:\_pythonProject\XML\gammaRD.txt'
+                #filePathP = '\\\\tcznt53\XML\gammaP.txt'
+                #filePathA = '\\\\tcznt53\XML\gammaA.txt'
+                #filePathAvg = '\\\\tcznt53\XML\gammaAvg.txt'
+                #filePathMax = '\\\\tcznt53\XML\gammaMax.txt'
+                #filePathRD = '\\\\tcznt53\XML\gammaRD.txt'
                 f = open(filePathP, "r")
                 self.prog = f.readlines()
                 f.close()
@@ -97,7 +111,6 @@ class App():
 
                 self.L4.configure(text=f"{progName[1]}")
 
-
                 f = open(filePathA, "r")
                 self.fqty = f.readlines()
                 f.close()
@@ -110,11 +123,13 @@ class App():
 
                 self.L6.configure(text=f"{self.qty}")
 
-                att = docs.getElementsByTagName("ns1:BoardTestXMLExport")
+                #att = docs.getElementsByTagName("ns1:BoardTestXMLExport")
+                att = docs.getElementsByTagName("ns1:RepairEventXML")
                 #print("%d ns1:BoardTestXMLExport" % att.length)
                 for i in att:
                     #print(i.getAttribute("numberOfDefects"))
-                    avg = i.getAttribute("numberOfDefects")
+                    #avg = i.getAttribute("numberOfDefects")
+                    avg = i.getAttribute("numberOfFalseCalledComponents")
 
                 f = open(filePathAvg, "r")
                 self.avgF = f.readlines()
@@ -140,13 +155,20 @@ class App():
                     self.L10.configure(text=f"{self.max}")
 
                 attRD = docs.getElementsByTagName("ns1:TestXML")
+                attRDFC = docs.getElementsByTagName("ns1:RepairActionXML")
                 # print("%d ns1:BoardTestXMLExport" % att.length)
                 f = open(filePathRD, "a")
+                iFC = 0
                 for iRD in attRD:
                     # print(i.getAttribute("numberOfDefects"))
-                    RDs = iRD.getAttribute("name")
-                    #print(RDs)
-                    f.write(f"{RDs}\n")
+                    #for iRDFC in attRDFC:
+                    #print(attRDFC[iFC].getAttribute("repairStatus"))
+                    if attRDFC[iFC].getAttribute("repairStatus") != "Repaired":
+                        RDs = iRD.getAttribute("name")
+                        #RDs = iRD.getAttribute("designator")
+                        #print(RDs)
+                        f.write(f"{RDs}\n")
+                    iFC += 1
                 f.close()
 
                 f = open(filePathRD, "r")
@@ -163,14 +185,13 @@ class App():
                         howMany = int(tabRD.count(RD))
                         refDes = RD
                         #howMany = int(tabRD.count(RD))
-                print(refDes)
-                self.L12.configure(text=f"{refDes.strip()}")
+                #print(refDes)
+                self.L12.configure(text=f"{refDes.strip().upper()}")
                 self.L14.configure(text=f"{howMany}")
                 self.L16.configure(text=f"{round((howMany/self.qty)*100)}%")
 
-
-
                 os.remove('XML/Gamma/Archive/'+date+'/'+xml0)
+                #os.remove('\\\\tcznt53\XML\GAMMA\Archive\\' + date + '\\' + xml0)
             else:
                 print("NOK")
         self.root.after(1000, self.updateList)
