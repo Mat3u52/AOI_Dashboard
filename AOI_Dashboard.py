@@ -7,11 +7,12 @@ import time
 import xml.dom as minidom
 import xml.dom.minidom
 import subprocess
+import matplotlib.pyplot as plt
 
 lines = os.listdir('XML')
 #10.231.161.222
-#subprocess.call(r'net use m: \\tcznt53\XML /user:AOI_VITOX_INSTALL 123456789*a', shell=True)
-#lines = os.listdir('\\\\tcznt53\XML')
+#subprocess.call(r'net use m: \\10.231.161.222\XML /user:AOI_VITOX_INSTALL 123456789*a', shell=True)
+#lines = os.listdir('\\\\10.231.161.222\XML')
 class App():
     def __init__(self):
         self.root = tk.Tk()
@@ -23,7 +24,10 @@ class App():
         self.label = tk.Label(text="")
         self.label.grid(row=3, column=0)
 
+        self.chartFlag = False
+
         self.L1 = Label(self.root, text="Line", width=10, borderwidth=1, relief="solid", bg="#302928", font="Arial", fg="#FFFFFF", pady="2")
+        #self.L2 = Label(self.root, text=f"{lines[2]}", width=10, borderwidth=1, relief="solid", bg="#080808", font="Arial", fg="#FFFFFF", pady="2")
         self.L2 = Label(self.root, text=f"{lines[0]}", width=10, borderwidth=1, relief="solid", bg="#080808", font="Arial", fg="#FFFFFF", pady="2")
         self.L1.grid(row=0, column=0)
         self.L2.grid(row=1, column=0)
@@ -47,6 +51,9 @@ class App():
         self.L12 = tk.Label(self.root, text="", width=10, borderwidth=1, relief="solid", bg="#080808", font="Arial", fg="#FFFFFF", pady="2")
         self.L11.grid(row=0, column=5)
         self.L12.grid(row=1, column=5)
+
+        self.L12.bind("<Button-1>", self.mouseClick)
+
         self.L13 = Label(self.root, text="Occurs", width=10, borderwidth=1, relief="solid", bg="#302928", font="Arial", fg="#FFFFFF", pady="2")
         self.L14 = tk.Label(self.root, text="", width=10, borderwidth=1, relief="solid", bg="#080808", font="Arial", fg="#FFFFFF", pady="2")
         self.L13.grid(row=0, column=6)
@@ -60,6 +67,10 @@ class App():
         self.updateList()
         self.root.mainloop()
 
+    def mouseClick(self, event):
+        print("mouse clicked")
+        self.chartFlag = True
+
     def updateClock(self):
         now = time.strftime("%H:%M:%S")
         self.label.configure(text=now)
@@ -70,9 +81,9 @@ class App():
         for date in os.listdir('XML/Gamma/Archive'):
             for xml0 in os.listdir('XML/Gamma/Archive/' + date):
                 docs = xml.dom.minidom.parse('XML/Gamma/Archive/'+date+'/'+xml0)
-        #for date in os.listdir('\\\\tcznt53\XML\GAMMA\Archive'):
-            #for xml0 in os.listdir('\\\\tcznt53\XML\GAMMA\Archive\\' + date):
-                #docs = xml.dom.minidom.parse('\\\\tcznt53\XML\GAMMA\Archive\\' + date + '\\' + xml0)
+        #for date in os.listdir('\\\\10.231.161.222\XML\GAMMA\Archive'):
+        #    for xml0 in os.listdir('\\\\10.231.161.222\XML\GAMMA\Archive\\' + date):
+        #        docs = xml.dom.minidom.parse('\\\\10.231.161.222\XML\GAMMA\Archive\\' + date + '\\' + xml0)
                 progName = xml0.split('#')
 
                 #print(progName[1])
@@ -84,11 +95,11 @@ class App():
                 filePathAvg = 'C:\_pythonProject\XML\gammaAvg.txt'
                 filePathMax = 'C:\_pythonProject\XML\gammaMax.txt'
                 filePathRD = 'C:\_pythonProject\XML\gammaRD.txt'
-                #filePathP = '\\\\tcznt53\XML\gammaP.txt'
-                #filePathA = '\\\\tcznt53\XML\gammaA.txt'
-                #filePathAvg = '\\\\tcznt53\XML\gammaAvg.txt'
-                #filePathMax = '\\\\tcznt53\XML\gammaMax.txt'
-                #filePathRD = '\\\\tcznt53\XML\gammaRD.txt'
+                #filePathP = '\\\\10.231.161.222\XML\gammaP.txt'
+                #filePathA = '\\\\10.231.161.222\XML\gammaA.txt'
+                #filePathAvg = '\\\\10.231.161.222\XML\gammaAvg.txt'
+                #filePathMax = '\\\\10.231.161.222\XML\gammaMax.txt'
+                #filePathRD = '\\\\10.231.161.222\XML\gammaRD.txt'
                 f = open(filePathP, "r")
                 self.prog = f.readlines()
                 f.close()
@@ -154,46 +165,111 @@ class App():
                 else:
                     self.L10.configure(text=f"{self.max}")
 
-                attRD = docs.getElementsByTagName("ns1:TestXML")
-                attRDFC = docs.getElementsByTagName("ns1:RepairActionXML")
-                # print("%d ns1:BoardTestXMLExport" % att.length)
-                f = open(filePathRD, "a")
-                iFC = 0
-                for iRD in attRD:
-                    # print(i.getAttribute("numberOfDefects"))
-                    #for iRDFC in attRDFC:
-                    #print(attRDFC[iFC].getAttribute("repairStatus"))
-                    if attRDFC[iFC].getAttribute("repairStatus") != "Repaired":
-                        RDs = iRD.getAttribute("name")
-                        #RDs = iRD.getAttribute("designator")
-                        #print(RDs)
-                        f.write(f"{RDs}\n")
-                    iFC += 1
-                f.close()
+                if int(avg) > 0:
+                    attRD = docs.getElementsByTagName("ns1:TestXML")
+                    attRDFC = docs.getElementsByTagName("ns1:RepairActionXML")
+                    # print("%d ns1:BoardTestXMLExport" % att.length)
+                    f = open(filePathRD, "a")
+                    iFC = 0
+                    for iRD in attRD:
+                        # print(i.getAttribute("numberOfDefects"))
+                        #for iRDFC in attRDFC:
+                        #print(attRDFC[iFC].getAttribute("repairStatus"))
+                        if attRDFC[iFC].getAttribute("repairStatus") != "Repaired":
+                            RDs = iRD.getAttribute("name")
+                            #RDs = iRD.getAttribute("designator")
+                            #print(RDs)
+                            f.write(f"{RDs}\n")
+                        iFC += 1
+                    f.close()
 
+                    f = open(filePathRD, "r")
+                    self.readRD = f.readlines()
+                    f.close()
+                    tabRD = self.readRD
+                    # print(tabRD)
+                    # print(tabRD[0])
+                    howMany = 0
+                    for RD in tabRD:
+                        # print(tabRD.count(RD))
+                        # print(tabRD.count(RD))
+                        if int(howMany) < int(tabRD.count(RD)):
+                            howMany = int(tabRD.count(RD))
+                            refDes = RD
+                            # howMany = int(tabRD.count(RD))
+                    # print(refDes)
+                    self.L12.configure(text=f"{refDes.strip().upper()}")
+                    self.L14.configure(text=f"{howMany}")
+                    self.L16.configure(text=f"{round((howMany / self.qty) * 100)}%")
+                else:
+                    f = open(filePathRD, "r")
+                    self.readRD = f.readlines()
+                    f.close()
+                    tabRD = self.readRD
+                    #print(tabRD)
+                    #print(tabRD[0])
+                    if tabRD: # <----- sprawdzić czy plik z ref des nie jest pusty!!!
+                        howMany = 0
+                        for RD in tabRD:
+                            #print(tabRD.count(RD))
+                            #print(tabRD.count(RD))
+                            if int(howMany) < int(tabRD.count(RD)):
+                                howMany = int(tabRD.count(RD))
+                                refDes = RD
+                                #howMany = int(tabRD.count(RD))
+                        #print(refDes)
+                        self.L12.configure(text=f"{refDes.strip().upper()}")
+                        self.L14.configure(text=f"{howMany}")
+                        self.L16.configure(text=f"{round((howMany/self.qty)*100)}%")
+
+                if self.chartFlag == True:
+                    self.chartFlag = False
+                    print(tabRD)
+                    tabRDCount = []
+                    for RDs in tabRD:
+                        print(tabRD.count(RDs))
+                        tabRDCount.append(tabRD.count(RDs))
+
+                    x = ['one', 'two', 'tree']
+                    y = [1, 2, 3]
+
+                    plt.scatter(tabRD, tabRDCount, label='Number of false calls', color = 'g', marker= 'o')
+
+                    plt.xlabel('Ref. Des.')
+                    plt.ylabel('Occurs')
+                    plt.title('Gamma')
+                    plt.legend()
+                    plt.show()
+
+                os.remove('XML/Gamma/Archive/'+date+'/'+xml0)
+                #os.remove('\\\\10.231.161.222\XML\GAMMA\Archive\\' + date + '\\' + xml0)
+            else:
+                print("NOK")
+                filePathRD = 'C:\_pythonProject\XML\gammaRD.txt'
                 f = open(filePathRD, "r")
                 self.readRD = f.readlines()
                 f.close()
                 tabRD = self.readRD
-                #print(tabRD)
-                #print(tabRD[0])
-                howMany = 0
-                for RD in tabRD:
-                    #print(tabRD.count(RD))
-                    #print(tabRD.count(RD))
-                    if int(howMany) < int(tabRD.count(RD)):
-                        howMany = int(tabRD.count(RD))
-                        refDes = RD
-                        #howMany = int(tabRD.count(RD))
-                #print(refDes)
-                self.L12.configure(text=f"{refDes.strip().upper()}")
-                self.L14.configure(text=f"{howMany}")
-                self.L16.configure(text=f"{round((howMany/self.qty)*100)}%")
 
-                os.remove('XML/Gamma/Archive/'+date+'/'+xml0)
-                #os.remove('\\\\tcznt53\XML\GAMMA\Archive\\' + date + '\\' + xml0)
-            else:
-                print("NOK")
+                if tabRD:  # <----- sprawdzić czy plik z ref des nie jest pusty!!!
+                    if self.chartFlag == True:
+                        self.chartFlag = False
+                        print(tabRD)
+                        tabRDCount = []
+                        for RDs in tabRD:
+                            print(tabRD.count(RDs))
+                            tabRDCount.append(tabRD.count(RDs))
+
+                        x = ['one', 'two', 'tree']
+                        y = [1, 2, 3]
+
+                        plt.scatter(tabRD, tabRDCount, label='Number of false calls', color = 'g', marker= 'o')
+
+                        plt.xlabel('Ref. Des.')
+                        plt.ylabel('Occurs')
+                        plt.title('Gamma')
+                        plt.legend()
+                        plt.show()
         self.root.after(1000, self.updateList)
 
 app=App()
