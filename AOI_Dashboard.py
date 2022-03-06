@@ -9,10 +9,10 @@ import xml.dom.minidom
 import subprocess
 import matplotlib.pyplot as plt
 
-lines = os.listdir('XML')
+#lines = os.listdir('XML')
 #10.231.161.222
-#subprocess.call(r'net use m: \\10.231.161.222\XML /user:AOI_VITOX_INSTALL 123456789*a', shell=True)
-#lines = os.listdir('\\\\10.231.161.222\XML')
+subprocess.call(r'net use m: \\10.231.161.222\XML /user:AOI_VITOX_INSTALL 123456789*a', shell=True)
+lines = os.listdir('\\\\10.231.161.222\XML')
 class App():
     def __init__(self):
         self.root = tk.Tk()
@@ -27,8 +27,8 @@ class App():
         self.chartFlag = False
 
         self.L1 = Label(self.root, text="Line", width=10, borderwidth=1, relief="solid", bg="#302928", font="Arial", fg="#FFFFFF", pady="2")
-        #self.L2 = Label(self.root, text=f"{lines[2]}", width=10, borderwidth=1, relief="solid", bg="#080808", font="Arial", fg="#FFFFFF", pady="2")
-        self.L2 = Label(self.root, text=f"{lines[0]}", width=10, borderwidth=1, relief="solid", bg="#080808", font="Arial", fg="#FFFFFF", pady="2")
+        self.L2 = Label(self.root, text=f"{lines[2]}", width=10, borderwidth=1, relief="solid", bg="#080808", font="Arial", fg="#FFFFFF", pady="2")
+        #self.L2 = Label(self.root, text=f"{lines[0]}", width=10, borderwidth=1, relief="solid", bg="#080808", font="Arial", fg="#FFFFFF", pady="2")
         self.L1.grid(row=0, column=0)
         self.L2.grid(row=1, column=0)
         self.L3 = Label(self.root, text="Item", width=27, borderwidth=1, relief="solid", bg="#302928", font="Arial", fg="#FFFFFF", pady="2")
@@ -78,28 +78,28 @@ class App():
 
     def updateList(self):
         xml0 = ""
-        for date in os.listdir('XML/Gamma/Archive'):
-            for xml0 in os.listdir('XML/Gamma/Archive/' + date):
-                docs = xml.dom.minidom.parse('XML/Gamma/Archive/'+date+'/'+xml0)
-        #for date in os.listdir('\\\\10.231.161.222\XML\GAMMA\Archive'):
-        #    for xml0 in os.listdir('\\\\10.231.161.222\XML\GAMMA\Archive\\' + date):
-        #        docs = xml.dom.minidom.parse('\\\\10.231.161.222\XML\GAMMA\Archive\\' + date + '\\' + xml0)
+        #for date in os.listdir('XML/Gamma/Archive'):
+        #    for xml0 in os.listdir('XML/Gamma/Archive/' + date):
+        #        docs = xml.dom.minidom.parse('XML/Gamma/Archive/'+date+'/'+xml0)
+        for date in os.listdir('\\\\10.231.161.222\XML\GAMMA\Archive'):
+            for xml0 in os.listdir('\\\\10.231.161.222\XML\GAMMA\Archive\\' + date):
+                docs = xml.dom.minidom.parse('\\\\10.231.161.222\XML\GAMMA\Archive\\' + date + '\\' + xml0)
                 progName = xml0.split('#')
 
                 #print(progName[1])
             if (xml0 != ""):
                 print("OK")
 
-                filePathP = 'C:\_pythonProject\XML\gammaP.txt'
-                filePathA = 'C:\_pythonProject\XML\gammaA.txt'
-                filePathAvg = 'C:\_pythonProject\XML\gammaAvg.txt'
-                filePathMax = 'C:\_pythonProject\XML\gammaMax.txt'
-                filePathRD = 'C:\_pythonProject\XML\gammaRD.txt'
-                #filePathP = '\\\\10.231.161.222\XML\gammaP.txt'
-                #filePathA = '\\\\10.231.161.222\XML\gammaA.txt'
-                #filePathAvg = '\\\\10.231.161.222\XML\gammaAvg.txt'
-                #filePathMax = '\\\\10.231.161.222\XML\gammaMax.txt'
-                #filePathRD = '\\\\10.231.161.222\XML\gammaRD.txt'
+                #filePathP = 'C:\_pythonProject\XML\gammaP.txt'
+                #filePathA = 'C:\_pythonProject\XML\gammaA.txt'
+                #filePathAvg = 'C:\_pythonProject\XML\gammaAvg.txt'
+                #filePathMax = 'C:\_pythonProject\XML\gammaMax.txt'
+                #filePathRD = 'C:\_pythonProject\XML\gammaRD.txt'
+                filePathP = '\\\\10.231.161.222\XML\gammaP.txt'
+                filePathA = '\\\\10.231.161.222\XML\gammaA.txt'
+                filePathAvg = '\\\\10.231.161.222\XML\gammaAvg.txt'
+                filePathMax = '\\\\10.231.161.222\XML\gammaMax.txt'
+                filePathRD = '\\\\10.231.161.222\XML\gammaRD.txt'
                 f = open(filePathP, "r")
                 self.prog = f.readlines()
                 f.close()
@@ -241,11 +241,12 @@ class App():
                     plt.legend()
                     plt.show()
 
-                os.remove('XML/Gamma/Archive/'+date+'/'+xml0)
-                #os.remove('\\\\10.231.161.222\XML\GAMMA\Archive\\' + date + '\\' + xml0)
+                #os.remove('XML/Gamma/Archive/'+date+'/'+xml0)
+                os.remove('\\\\10.231.161.222\XML\GAMMA\Archive\\' + date + '\\' + xml0)
             else:
                 print("NOK")
-                filePathRD = 'C:\_pythonProject\XML\gammaRD.txt'
+                #filePathRD = 'C:\_pythonProject\XML\gammaRD.txt'
+                filePathRD = '\\\\10.231.161.222\XML\gammaRD.txt'
                 f = open(filePathRD, "r")
                 self.readRD = f.readlines()
                 f.close()
