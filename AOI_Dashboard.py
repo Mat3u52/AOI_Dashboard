@@ -83,9 +83,11 @@ class App():
         #        docs = xml.dom.minidom.parse('XML/Gamma/Archive/'+date+'/'+xml0)
         for date in os.listdir('\\\\10.231.161.222\XML\GAMMA\Archive'):
             for xml0 in os.listdir('\\\\10.231.161.222\XML\GAMMA\Archive\\' + date):
-                docs = xml.dom.minidom.parse('\\\\10.231.161.222\XML\GAMMA\Archive\\' + date + '\\' + xml0)
-                progName = xml0.split('#')
-
+                if os.path.exists('\\\\10.231.161.222\XML\GAMMA\Archive\\' + date + '\\' + xml0): #add
+                    docs = xml.dom.minidom.parse('\\\\10.231.161.222\XML\GAMMA\Archive\\' + date + '\\' + xml0)
+                    progName = xml0.split('#')
+                else: #add
+                    xml0 = "" #add
                 #print(progName[1])
             if (xml0 != ""):
                 print("OK")
@@ -243,6 +245,7 @@ class App():
 
                 #os.remove('XML/Gamma/Archive/'+date+'/'+xml0)
                 os.remove('\\\\10.231.161.222\XML\GAMMA\Archive\\' + date + '\\' + xml0)
+                time.sleep(3) #add
             else:
                 print("NOK")
                 #filePathRD = 'C:\_pythonProject\XML\gammaRD.txt'
