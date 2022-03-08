@@ -7,3 +7,5 @@ The app collect the information about production, as you can see below:
 - average of false fail,
 - maximum of false fail,
 - the most common reference designator.
+
+The one of important feature is chart where you can find information about amount of false calls for each reference designator for one production batch.
