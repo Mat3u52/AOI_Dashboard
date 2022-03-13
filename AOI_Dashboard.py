@@ -98,10 +98,15 @@ class App():
                 #filePathMax = 'C:\_pythonProject\XML\gammaMax.txt'
                 #filePathRD = 'C:\_pythonProject\XML\gammaRD.txt'
                 filePathP = '\\\\10.231.161.222\XML\gammaP.txt'
-                filePathA = '\\\\10.231.161.222\XML\gammaA.txt'
-                filePathAvg = '\\\\10.231.161.222\XML\gammaAvg.txt'
-                filePathMax = '\\\\10.231.161.222\XML\gammaMax.txt'
-                filePathRD = '\\\\10.231.161.222\XML\gammaRD.txt'
+                filePathP = 'gammaP.txt'
+                #filePathA = '\\\\10.231.161.222\XML\gammaA.txt'
+                filePathA = 'gammaA.txt'
+                #filePathAvg = '\\\\10.231.161.222\XML\gammaAvg.txt'
+                filePathAvg = 'gammaAvg.txt'
+                #filePathMax = '\\\\10.231.161.222\XML\gammaMax.txt'
+                filePathMax = 'gammaMax.txt'
+                #filePathRD = '\\\\10.231.161.222\XML\gammaRD.txt'
+                filePathRD = 'gammaRD.txt'
                 f = open(filePathP, "r")
                 self.prog = f.readlines()
                 f.close()
