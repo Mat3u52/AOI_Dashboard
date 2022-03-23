@@ -71,10 +71,17 @@ class App():
         print("mouse clicked")
         self.chartFlag = True
 
+    #def updateClock(self):
+    #    now = time.strftime("%H:%M:%S")
+    #    self.label.configure(text=now)
+    #    self.root.after(1000, self.updateClock)
     def updateClock(self):
         now = time.strftime("%H:%M:%S")
-        self.label.configure(text=now)
-        self.root.after(1000, self.updateClock)
+        if now == "23:45:00":
+            time.sleep(1800)
+        else:
+            self.label.configure(text=now)
+            self.root.after(1000, self.updateClock)
 
     def updateList(self):
         xml0 = ""
