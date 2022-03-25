@@ -258,8 +258,8 @@ class App():
 
             else:
                 print("NOK")
-                #filePathRD = 'storage\gammaRD.txt'
-                filePathRD = '\\\\10.231.161.222\XML\gammaRD.txt'
+                filePathRD = 'storage\gammaRD.txt'
+                #filePathRD = '\\\\10.231.161.222\XML\gammaRD.txt'
                 f = open(filePathRD, "r")
                 self.readRD = f.readlines()
                 f.close()
