@@ -77,13 +77,16 @@ class App():
     #    self.root.after(1000, self.updateClock)
     def updateClock(self):
         now = time.strftime("%H:%M:%S")
-        if now == "23:45:00":
-            time.sleep(1800)
-        else:
-            self.label.configure(text=now)
-            self.root.after(1000, self.updateClock)
+        #if now == "23:45:00":
+        #    time.sleep(1800)
+        #else:
+        #    self.label.configure(text=now)
+        #    self.root.after(1000, self.updateClock)
+        self.label.configure(text=now)
+        self.root.after(1000, self.updateClock)
 
     def updateList(self):
+        subprocess.call(r'net use m: \\10.231.161.222\XML /user:AOI_VITOX_INSTALL 123456789*a', shell=True)
         xml0 = ""
         #for date in os.listdir('XML\Gamma\Archive'):
         #    for xml0 in os.listdir('XML\Gamma\Archive\\' + date):
