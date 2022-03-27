@@ -9,16 +9,15 @@ import xml.dom.minidom
 import subprocess
 import matplotlib.pyplot as plt
 
-#lines = os.listdir('XML')
+lines = os.listdir('XML')
 
-subprocess.call(r'net use m: \\10.231.161.222\XML /user:AOI_VITOX_INSTALL 123456789*a', shell=True)
-lines = os.listdir('\\\\10.231.161.222\XML')
+#subprocess.call(r'net use m: \\10.231.161.222\XML /user:AOI_VITOX_INSTALL 123456789*a', shell=True)
+#lines = os.listdir('\\\\10.231.161.222\XML')
 class App():
     def __init__(self):
         self.root = tk.Tk()
         self.root.title('AOI Dashboard')
         self.root.resizable(0, 0)
-        #self.root.geometry('1100x80')
         self.root.iconbitmap('dashboard.ico')
 
         self.label = tk.Label(text="")
@@ -27,8 +26,8 @@ class App():
         self.chartFlag = False
 
         self.L1 = Label(self.root, text="Line", width=10, borderwidth=1, relief="solid", bg="#302928", font="Arial", fg="#FFFFFF", pady="2")
-        self.L2 = Label(self.root, text=f"{lines[2]}", width=10, borderwidth=1, relief="solid", bg="#080808", font="Arial", fg="#FFFFFF", pady="2")
-        #self.L2 = Label(self.root, text=f"{lines[0]}", width=10, borderwidth=1, relief="solid", bg="#080808", font="Arial", fg="#FFFFFF", pady="2")
+        #self.L2 = Label(self.root, text=f"{lines[2]}", width=10, borderwidth=1, relief="solid", bg="#080808", font="Arial", fg="#FFFFFF", pady="2")
+        self.L2 = Label(self.root, text=f"{lines[1]}", width=10, borderwidth=1, relief="solid", bg="#080808", font="Arial", fg="#FFFFFF", pady="2")
         self.L1.grid(row=0, column=0)
         self.L2.grid(row=1, column=0)
         self.L3 = Label(self.root, text="Item", width=27, borderwidth=1, relief="solid", bg="#302928", font="Arial", fg="#FFFFFF", pady="2")
@@ -51,9 +50,7 @@ class App():
         self.L12 = tk.Label(self.root, text="", width=10, borderwidth=1, relief="solid", bg="#080808", font="Arial", fg="#FFFFFF", pady="2")
         self.L11.grid(row=0, column=5)
         self.L12.grid(row=1, column=5)
-
         self.L12.bind("<Button-1>", self.mouseClick)
-
         self.L13 = Label(self.root, text="Occurs", width=10, borderwidth=1, relief="solid", bg="#302928", font="Arial", fg="#FFFFFF", pady="2")
         self.L14 = tk.Label(self.root, text="", width=10, borderwidth=1, relief="solid", bg="#080808", font="Arial", fg="#FFFFFF", pady="2")
         self.L13.grid(row=0, column=6)
@@ -63,6 +60,27 @@ class App():
         self.L15.grid(row=0, column=7)
         self.L16.grid(row=1, column=7)
 
+#------Line 2---------
+
+        # self.L17 = Label(self.root, text=f"{lines[1]}", width=10, borderwidth=1, relief="solid", bg="#080808", font="Arial", fg="#FFFFFF", pady="2")
+        self.L17 = Label(self.root, text=f"{lines[0]}", width=10, borderwidth=1, relief="solid", bg="#080808", font="Arial", fg="#FFFFFF", pady="2")
+        self.L17.grid(row=2, column=0)
+        self.L18 = tk.Label(self.root, text=f"", width=27, borderwidth=1, relief="solid", bg="#080808", font="Arial", fg="#FFFFFF", pady="2")
+        self.L18.grid(row=2, column=1)
+        self.L19 = tk.Label(self.root, text=f"", width=10, borderwidth=1, relief="solid", bg="#080808", font="Arial", fg="#FFFFFF", pady="2")
+        self.L19.grid(row=2, column=2)
+        self.L20 = tk.Label(self.root, text="", width=10, borderwidth=1, relief="solid", bg="#080808", font="Arial", fg="#FFFFFF", pady="2")
+        self.L20.grid(row=2, column=3)
+        self.L21 = tk.Label(self.root, text="", width=10, borderwidth=1, relief="solid", bg="#080808", font="Arial", fg="#FFFFFF", pady="2")
+        self.L21.grid(row=2, column=4)
+        self.L22 = tk.Label(self.root, text="", width=10, borderwidth=1, relief="solid", bg="#080808", font="Arial", fg="#FFFFFF", pady="2")
+        self.L22.grid(row=2, column=5)
+        self.L22.bind("<Button-1>", self.mouseClick)
+        self.L21 = tk.Label(self.root, text="", width=10, borderwidth=1, relief="solid", bg="#080808", font="Arial", fg="#FFFFFF", pady="2")
+        self.L21.grid(row=2, column=6)
+        self.L22 = tk.Label(self.root, text="", width=10, borderwidth=1, relief="solid", bg="#080808", font="Arial", fg="#FFFFFF", pady="2")
+        self.L22.grid(row=2, column=7)
+
         self.updateClock()
         self.updateList()
         self.root.mainloop()
@@ -71,49 +89,35 @@ class App():
         print("mouse clicked")
         self.chartFlag = True
 
-    #def updateClock(self):
-    #    now = time.strftime("%H:%M:%S")
-    #    self.label.configure(text=now)
-    #    self.root.after(1000, self.updateClock)
     def updateClock(self):
         now = time.strftime("%H:%M:%S")
-        #if now == "23:45:00":
-        #    time.sleep(1800)
-        #else:
-        #    self.label.configure(text=now)
-        #    self.root.after(1000, self.updateClock)
         self.label.configure(text=now)
         self.root.after(1000, self.updateClock)
 
     def updateList(self):
-        subprocess.call(r'net use m: \\10.231.161.222\XML /user:AOI_VITOX_INSTALL 123456789*a', shell=True)
+        #subprocess.call(r'net use m: \\10.231.161.222\XML /user:AOI_VITOX_INSTALL 123456789*a', shell=True)
         xml0 = ""
-        #for date in os.listdir('XML\Gamma\Archive'):
-        #    for xml0 in os.listdir('XML\Gamma\Archive\\' + date):
-        #        if os.path.exists('XML\GAMMA\Archive\\' + date + '\\' + xml0):  # add
-        #            docs = xml.dom.minidom.parse('XML\Gamma\Archive\\'+date+'\\'+xml0)
-        for date in os.listdir('\\\\10.231.161.222\XML\GAMMA\Archive'):
-            for xml0 in os.listdir('\\\\10.231.161.222\XML\GAMMA\Archive\\' + date):
-                if os.path.exists('\\\\10.231.161.222\XML\GAMMA\Archive\\' + date + '\\' + xml0): #add
-                    docs = xml.dom.minidom.parse('\\\\10.231.161.222\XML\GAMMA\Archive\\' + date + '\\' + xml0)
+        for date in os.listdir('XML\Gamma\Archive'):
+            for xml0 in os.listdir('XML\Gamma\Archive\\' + date):
+                if os.path.exists('XML\GAMMA\Archive\\' + date + '\\' + xml0):  # add
+                    docs = xml.dom.minidom.parse('XML\Gamma\Archive\\'+date+'\\'+xml0)
+        #for date in os.listdir('\\\\10.231.161.222\XML\GAMMA\Archive'):
+        #    for xml0 in os.listdir('\\\\10.231.161.222\XML\GAMMA\Archive\\' + date):
+        #        if os.path.exists('\\\\10.231.161.222\XML\GAMMA\Archive\\' + date + '\\' + xml0): #add
+        #            docs = xml.dom.minidom.parse('\\\\10.231.161.222\XML\GAMMA\Archive\\' + date + '\\' + xml0)
                     progName = xml0.split('#')
                 else: #add
                     xml0 = "" #add
                 #print(progName[1])
             if (xml0 != ""):
-                #if os.path.exists('XML\GAMMA\Archive\\' + date + '\\' + xml0):  # add
-                if os.path.exists('\\\\10.231.161.222\XML\GAMMA\Archive\\' + date + '\\' + xml0):  # add
+                if os.path.exists('XML\GAMMA\Archive\\' + date + '\\' + xml0):  # add
+                #if os.path.exists('\\\\10.231.161.222\XML\GAMMA\Archive\\' + date + '\\' + xml0):  # add
                     print("OK")
 
-                    #filePathP = '\\\\10.231.161.222\XML\gammaP.txt'
                     filePathP = 'storage\gammaP.txt'
-                    #filePathA = '\\\\10.231.161.222\XML\gammaA.txt'
                     filePathA = 'storage\gammaA.txt'
-                    #filePathAvg = '\\\\10.231.161.222\XML\gammaAvg.txt'
                     filePathAvg = 'storage\gammaAvg.txt'
-                    #filePathMax = '\\\\10.231.161.222\XML\gammaMax.txt'
                     filePathMax = 'storage\gammaMax.txt'
-                    #filePathRD = '\\\\10.231.161.222\XML\gammaRD.txt'
                     filePathRD = 'storage\gammaRD.txt'
                     f = open(filePathP, "r")
                     self.prog = f.readlines()
@@ -149,12 +153,8 @@ class App():
 
                     self.L6.configure(text=f"{self.qty}")
 
-                    #att = docs.getElementsByTagName("ns1:BoardTestXMLExport")
                     att = docs.getElementsByTagName("ns1:RepairEventXML")
-                    #print("%d ns1:BoardTestXMLExport" % att.length)
                     for i in att:
-                        #print(i.getAttribute("numberOfDefects"))
-                        #avg = i.getAttribute("numberOfDefects")
                         avg = i.getAttribute("numberOfFalseCalledComponents")
 
                     f = open(filePathAvg, "r")
@@ -187,13 +187,8 @@ class App():
                         f = open(filePathRD, "a")
                         iFC = 0
                         for iRD in attRD:
-                            # print(i.getAttribute("numberOfDefects"))
-                            #for iRDFC in attRDFC:
-                            #print(attRDFC[iFC].getAttribute("repairStatus"))
                             if attRDFC[iFC].getAttribute("repairStatus") != "Repaired":
                                 RDs = iRD.getAttribute("name")
-                                #RDs = iRD.getAttribute("designator")
-                                #print(RDs)
                                 f.write(f"{RDs}\n")
                             iFC += 1
                         f.close()
@@ -255,14 +250,13 @@ class App():
                         plt.title('Gamma')
                         plt.legend()
                         plt.show()
-                    #time.sleep(3) #add
-                    #os.remove('XML\Gamma\Archive\\'+date+'\\'+xml0)
-                    os.remove('\\\\10.231.161.222\XML\GAMMA\Archive\\' + date + '\\' + xml0)
+
+                    os.remove('XML\Gamma\Archive\\'+date+'\\'+xml0)
+                    #os.remove('\\\\10.231.161.222\XML\GAMMA\Archive\\' + date + '\\' + xml0)
 
             else:
                 print("NOK")
                 filePathRD = 'storage\gammaRD.txt'
-                #filePathRD = '\\\\10.231.161.222\XML\gammaRD.txt'
                 f = open(filePathRD, "r")
                 self.readRD = f.readlines()
                 f.close()
@@ -287,6 +281,5 @@ class App():
                         plt.title('Gamma')
                         plt.legend()
                         plt.show()
-        #self.root.after(1000, self.updateList)
         self.root.after(1000, self.updateList)
 app=App()
